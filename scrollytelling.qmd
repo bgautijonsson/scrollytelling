@@ -1,0 +1,128 @@
+---
+title: "Eignir, skuldir, tekjur og gjöld"
+subtitle: "Fjárhagsstaða þjóðarinnar í tölum"
+description: "Greining á fjárhagsstöðu Íslendinga byggð á gögnum frá Hagstofu Íslands."
+theme: [flatly, theme.scss]
+title-block-banner: true
+format:
+  closeread-html:
+    code-tools: true
+execute:
+  echo: false
+  message: false
+  error: false
+engine: knitr
+include-in-header: header.html
+---
+
+```{r setup}
+#| include: false
+box::use(
+  arrow[read_parquet],
+  here[here],
+  visitalaneysluverds[vnv_convert]
+)
+
+box::use(
+  R / make_deciles_plot[make_deciles_plot]
+)
+
+d <- here("data", "deciles.parquet") |>
+    read_parquet()
+
+d$value <- vnv_convert(d$value, d$year)
+```
+
+
+:::{.cr-section}
+
+Hér er greining á eignum Íslendinga, þar sem þeim er raðað í tíundarhluta eftir heildareignum. Þessi greining veitir innsýn í dreifingu auðs meðal þjóðarinnar. @cr-eignir-e-eignir
+
+
+:::{#cr-eignir-e-eignir}
+```{r}
+#| fig-asp: 0.8
+#| fig-width: 10
+make_deciles_plot(
+  d,
+  "Eignir",
+  "Eignir alls"
+)
+```
+:::
+
+Texti um fasteignir Íslendinga. Hér er þeim raðað í tíundarhluta eftir heildareignum. @cr-fasteignir-e-eignir
+
+
+:::{#cr-fasteignir-e-eignir}
+```{r}
+#| fig-asp: 0.8
+#| fig-width: 10
+make_deciles_plot(
+  d,
+  "Eignir",
+  "Fasteignir"
+)
+```
+:::
+
+Texti um verðbréf Íslendinga. Hér er þeim raðað í tíundarhluta eftir heildareignum. @cr-verdbref-e-eignir
+
+
+:::{#cr-verdbref-e-eignir}
+```{r}
+#| fig-asp: 0.8
+#| fig-width: 10
+make_deciles_plot(
+  d,
+  "Eignir",
+  "Verðbréf"
+)
+```
+:::
+
+Texti um verðbréf Íslendinga. Hér er þeim raðað í tíundarhluta eftir heildartekjum. @cr-verdbref-e-tekjur
+
+
+:::{#cr-verdbref-e-tekjur}
+```{r}
+#| fig-asp: 0.8
+#| fig-width: 10
+make_deciles_plot(
+  d,
+  "Heildartekjur",
+  "Verðbréf"
+)
+```
+:::
+
+Hér er fjármagnstekjum raðað eftir tíundarhlutum heildartekja. @cr-fjarmagnstekjur-e-tekjur
+
+:::{#cr-fjarmagnstekjur-e-tekjur}
+```{r}
+#| fig-asp: 0.8
+#| fig-width: 10
+make_deciles_plot(
+  d,
+  "Heildartekjur",
+  "Fjármagnstekjur"
+)
+```
+:::
+
+Hér er atvinnuhekjum raðað eftir tíundarhlutum heildartekja. @cr-atvinnutekjur-e-tekjur
+
+:::{#cr-atvinnutekjur-e-tekjur}
+```{r}
+#| fig-asp: 0.8
+#| fig-width: 10
+make_deciles_plot(
+  d,
+  "Heildartekjur",
+  "Atvinnutekjur"
+)
+```
+:::
+:::
+
+
