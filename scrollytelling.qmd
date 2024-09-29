@@ -12,7 +12,6 @@ execute:
   message: false
   error: false
 engine: knitr
-include-in-header: header.html
 ---
 
 ```{r setup}
