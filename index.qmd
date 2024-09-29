@@ -12,6 +12,7 @@ execute:
   message: false
   error: false
 engine: knitr
+embed-resources: true
 ---
 
 ```{r setup}
